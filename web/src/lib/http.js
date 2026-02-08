@@ -5,9 +5,20 @@ const http = axios.create({
   timeout: 10000,
 })
 
+http.interceptors.request.use((config) => {
+  const token = localStorage.getItem('tracemall_token')
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+  return config
+})
+
 http.interceptors.response.use(
   (response) => response,
-  (error) => Promise.reject(error),
+  (error) => {
+    const message = error?.response?.data?.message || error.message || 'Request failed'
+    return Promise.reject(new Error(message))
+  },
 )
 
 export default http
