@@ -99,3 +99,8 @@ cd server
 
 - `docs/roadmap.md`：阶段目标、交付件、验收标准
 - `docs/commit-policy.md`：分阶段提交规范
+- `docs/er-model.md`：数据库 ER 模型说明
+- `docs/api-groups.md`：API 分组与接口边界
+- `docs/verify-rules.md`：验真与风控规则
+- `docs/experiment-metrics.md`：论文实验指标建议
+- `docs/demo-script.md`：答辩演示脚本
