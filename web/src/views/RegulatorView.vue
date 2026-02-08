@@ -16,7 +16,7 @@ onMounted(loadData)
 </script>
 
 <template>
-  <AppShell title="监管视图" subtitle="风险告警与审计日志导出基础面板">
+  <AppShell title="监管视图" subtitle="风险告警与审计日志基础面板">
     <section class="panel">
       <h3>风险告警</h3>
       <div class="table-wrap">

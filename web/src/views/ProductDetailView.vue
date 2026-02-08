@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router'
 import AppShell from '@/components/layout/AppShell.vue'
 import TraceTimeline from '@/components/ui/TraceTimeline.vue'
 import { getFruit, traceDetail } from '@/api'
+import { toBatchStatusLabel } from '@/utils/status'
 
 const route = useRoute()
 const fruit = ref(null)
@@ -31,7 +32,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <AppShell title="商品详情" subtitle="查看商品信息与溯源链条">
+  <AppShell title="商品详情" subtitle="查看商品信息与完整溯源链路">
     <section class="panel" v-if="fruit">
       <h3>{{ fruit.fruitName }}</h3>
       <p>{{ fruit.category }} · {{ fruit.origin }}</p>
@@ -49,7 +50,7 @@ onMounted(async () => {
       <div v-if="trace?.summary" class="trace-summary">
         <p><strong>批次：</strong>{{ trace.summary.batchNo }}</p>
         <p><strong>店铺：</strong>{{ trace.summary.shopName }}</p>
-        <p><strong>状态：</strong>{{ trace.summary.batchStatus }}</p>
+        <p><strong>状态：</strong>{{ toBatchStatusLabel(trace.summary.batchStatus) }}</p>
       </div>
     </section>
 

@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue'
 import AppShell from '@/components/layout/AppShell.vue'
 import { listMyOrders, payOrder } from '@/api'
+import { toOrderStatusLabel } from '@/utils/status'
 
 const orders = ref([])
 const loading = ref(false)
@@ -24,7 +25,7 @@ onMounted(loadOrders)
 </script>
 
 <template>
-  <AppShell title="我的订单" subtitle="模拟支付状态流转">
+  <AppShell title="我的订单" subtitle="模拟支付并查看订单状态流转">
     <section class="panel">
       <h3>订单列表</h3>
       <p v-if="loading">加载中...</p>
@@ -42,7 +43,7 @@ onMounted(loadOrders)
           <tbody>
             <tr v-for="order in orders" :key="order.orderNo">
               <td>{{ order.orderNo }}</td>
-              <td>{{ order.status }}</td>
+              <td>{{ toOrderStatusLabel(order.status) }}</td>
               <td>¥{{ order.payableAmount }}</td>
               <td>{{ order.paymentRef || '-' }}</td>
               <td>

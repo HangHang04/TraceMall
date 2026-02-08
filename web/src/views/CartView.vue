@@ -9,11 +9,16 @@ const cart = useCartStore()
 
 async function checkout() {
   if (!cart.items.length) return
+
   const payload = {
-    items: cart.items.map((item) => ({ batchId: item.batchId, quantity: Number(item.quantity) })),
+    items: cart.items.map((item) => ({
+      batchId: item.batchId,
+      quantity: Number(item.quantity),
+    })),
     shippingAddress: '默认演示地址',
     remark: 'web checkout',
   }
+
   await createOrder(payload)
   cart.clear()
   router.push('/orders')
