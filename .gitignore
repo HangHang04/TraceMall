@@ -1,12 +1,27 @@
-﻿# Ignore
-node_modules/
-dist/
-build/
-.vscode/
-.idea/
+﻿# OS / IDE
 .DS_Store
 Thumbs.db
+.vscode/
+.idea/
+
+# Node / frontend
+node_modules/
+web/node_modules/
+web/dist/
+dist/
+build/
+
+# Java / backend
+**/target/
+*.class
+*.jar
+*.war
+*.log
+
+# Local env
 .env
 .env.*
 logs/
-*.log
+
+# Avoid committing nested git metadata accidentally
+server/server/.git/
