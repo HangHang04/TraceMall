@@ -41,3 +41,10 @@ management:
 
 server:
   port: 8080
+
+trace:
+  jwt:
+    secret: ${TRACE_JWT_SECRET:TraceMallJwtSecretTraceMallJwtSecret2026}
+    expire-minutes: ${TRACE_JWT_EXPIRE_MINUTES:240}
+  sign:
+    key: ${TRACE_SIGN_KEY:TRACE_SIGN_KEY_2026}

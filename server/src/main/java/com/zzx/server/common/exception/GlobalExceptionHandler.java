@@ -20,7 +20,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BizException.class)
     public ResponseEntity<ApiResponse<Void>> handleBiz(BizException ex, HttpServletRequest request) {
         return ResponseEntity.badRequest()
-                .body(ApiResponse.fail(ex.getErrorCode(), ex.getMessage(), request.getHeader("X-Trace-Id")));
+                .body(ApiResponse.fail(ex.getErrorCode(), ex.getMessage(), traceId(request)));
     }
 
     @ExceptionHandler({MethodArgumentNotValidException.class, ConstraintViolationException.class})
@@ -34,18 +34,26 @@ public class GlobalExceptionHandler {
             message = ex.getMessage();
         }
         return ResponseEntity.badRequest()
-                .body(ApiResponse.fail(ErrorCode.VALIDATION_ERROR, message, request.getHeader("X-Trace-Id")));
+                .body(ApiResponse.fail(ErrorCode.VALIDATION_ERROR, message, traceId(request)));
     }
 
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ApiResponse<Void>> handleAccessDenied(AccessDeniedException ex, HttpServletRequest request) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                .body(ApiResponse.fail(ErrorCode.FORBIDDEN, "Forbidden", request.getHeader("X-Trace-Id")));
+                .body(ApiResponse.fail(ErrorCode.FORBIDDEN, "Forbidden", traceId(request)));
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<Void>> handleSystem(Exception ex, HttpServletRequest request) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(ApiResponse.fail(ErrorCode.SYSTEM_ERROR, "Internal server error", request.getHeader("X-Trace-Id")));
+                .body(ApiResponse.fail(ErrorCode.SYSTEM_ERROR, "Internal server error", traceId(request)));
+    }
+
+    private String traceId(HttpServletRequest request) {
+        Object attr = request.getAttribute("X-Trace-Id");
+        if (attr != null) {
+            return String.valueOf(attr);
+        }
+        return request.getHeader("X-Trace-Id");
     }
 }
