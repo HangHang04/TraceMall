@@ -50,12 +50,14 @@ public class TraceService {
         String traceId = request.traceId();
         if (!TRACE_PATTERN.matcher(traceId).matches()) {
             traceMapper.insertScanLog(traceId, null, normalizeIp(request.ip()), request.geo(), request.deviceFingerprint(), "FAIL", "traceId format invalid");
+            traceMapper.insertRiskAlert(traceId, null, "FORMAT_INVALID", "HIGH", "二维码格式非法，触发异常告警");
             return new VerifyResult("FAIL", "traceId format invalid", "HIGH", null, false);
         }
 
         Map<String, Object> summary = traceMapper.findTraceSummary(traceId);
         if (summary == null) {
             traceMapper.insertScanLog(traceId, null, normalizeIp(request.ip()), request.geo(), request.deviceFingerprint(), "FAIL", "trace code not found");
+            traceMapper.insertRiskAlert(traceId, null, "UNKNOWN_TRACE", "MODERATE", "扫描到不存在的溯源码");
             return new VerifyResult("FAIL", "trace code not found", "HIGH", null, false);
         }
 
