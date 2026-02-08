@@ -81,6 +81,13 @@ cd server
 ./mvnw spring-boot:run
 ```
 
+默认数据库连接（可通过环境变量覆盖）：
+- Host: `localhost`
+- Port: `3308`
+- Database: `tracemall`
+- Username: `root`
+- Password: `123456`
+
 ## 6. 里程碑
 
 - M0：工程基线与规范

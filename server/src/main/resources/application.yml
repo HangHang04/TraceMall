@@ -4,9 +4,9 @@ spring:
   profiles:
     active: dev
   datasource:
-    url: ${TRACE_DB_URL:jdbc:mysql://localhost:3306/tracemall?useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai}
-    username: ${TRACE_DB_USERNAME:tracemall}
-    password: ${TRACE_DB_PASSWORD:tracemall}
+    url: ${TRACE_DB_URL:jdbc:mysql://localhost:3308/tracemall?useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai}
+    username: ${TRACE_DB_USERNAME:root}
+    password: ${TRACE_DB_PASSWORD:123456}
     driver-class-name: com.mysql.cj.jdbc.Driver
   data:
     redis:
