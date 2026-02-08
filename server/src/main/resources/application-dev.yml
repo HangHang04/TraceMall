@@ -1,0 +1,12 @@
+spring:
+  config:
+    activate:
+      on-profile: dev
+  flyway:
+    clean-disabled: true
+    baseline-on-migrate: true
+
+logging:
+  level:
+    root: info
+    com.zzx.server: debug
