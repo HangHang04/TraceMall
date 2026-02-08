@@ -4,7 +4,7 @@ spring:
   profiles:
     active: dev
   datasource:
-    url: ${TRACE_DB_URL:jdbc:mysql://localhost:3308/tracemall?useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai}
+    url: ${TRACE_DB_URL:jdbc:mysql://localhost:3308/tracemall?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai}
     username: ${TRACE_DB_USERNAME:root}
     password: ${TRACE_DB_PASSWORD:123456}
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -40,7 +40,7 @@ management:
         include: health,info
 
 server:
-  port: 8080
+  port: ${TRACE_SERVER_PORT:18081}
 
 trace:
   jwt:
