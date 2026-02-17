@@ -1,4 +1,4 @@
-<script setup>
+﻿<script setup>
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
@@ -19,15 +19,15 @@ const auth = useAuthStore()
 
 const navItems = computed(() => {
   if (auth.role === 'MERCHANT') {
-    return [{ key: 'merchant', icon: '📊', label: '商家看板', path: '/merchant' }]
+    return [{ key: 'merchant', icon: '▦', label: '商家看板', path: '/merchant' }]
   }
   if (auth.role === 'REGULATOR') {
-    return [{ key: 'regulator', icon: '🛡️', label: '监管视图', path: '/regulator' }]
+    return [{ key: 'regulator', icon: '◈', label: '监管视图', path: '/regulator' }]
   }
   return [
-    { key: 'dashboard', icon: '🏠', label: '商城主页', path: '/dashboard' },
-    { key: 'cart', icon: '🛒', label: '购物车', path: '/cart' },
-    { key: 'orders', icon: '📦', label: '我的订单', path: '/orders' },
+    { key: 'dashboard', icon: '⌂', label: '商城主页', path: '/dashboard' },
+    { key: 'cart', icon: '◍', label: '购物车', path: '/cart' },
+    { key: 'orders', icon: '☰', label: '我的订单', path: '/orders' },
   ]
 })
 
@@ -45,9 +45,9 @@ function logout() {
   <aside :class="['sidebar', { collapsed: props.collapsed }]">
     <div class="sidebar-top">
       <button class="brand" @click="emit('toggle')" :title="props.collapsed ? '展开导航栏' : '收起导航栏'">
-        <div class="brand-logo">TM</div>
+        <div class="brand-logo">T</div>
         <div class="brand-text">
-          <div class="brand-title">TraceMall</div>
+          <div class="brand-title">Trace Mall</div>
           <div class="brand-subtitle">可溯源水果商城</div>
         </div>
       </button>
