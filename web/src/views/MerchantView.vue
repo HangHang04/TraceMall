@@ -1,8 +1,9 @@
-<script setup>
+﻿<script setup>
 import { computed, onMounted, reactive, ref } from 'vue'
 import AppShell from '@/components/layout/AppShell.vue'
 import ChartPanel from '@/components/ui/ChartPanel.vue'
 import MetricCard from '@/components/ui/MetricCard.vue'
+import NavIcon from '@/components/ui/NavIcon.vue'
 import { createBatch, createBatchEvent, createMerchantFruit, listMerchantFruits } from '@/api'
 import { toMerchantStatusLabel } from '@/utils/status'
 
@@ -130,10 +131,10 @@ onMounted(loadFruits)
 <template>
   <AppShell title="商家看板" subtitle="数据分析 + 商品上架 + 批次/事件管理">
     <section class="metrics-grid">
-      <MetricCard label="商品总数" :value="fruits.length" trend="当前商家名下商品" status="统计" />
-      <MetricCard label="在售商品" :value="onSaleCount" trend="可直接售卖" status="在售" />
-      <MetricCard label="平均单价" :value="`¥${avgPrice}`" trend="按所有商品计算" status="参考" />
-      <MetricCard label="管理状态" value="在线" trend="批次录入与存证可用" status="稳定" />
+      <MetricCard icon="package" label="商品总数" :value="fruits.length" trend="当前商家名下商品" status="统计" />
+      <MetricCard icon="merchant" label="在售商品" :value="onSaleCount" trend="可直接售卖" status="在售" />
+      <MetricCard icon="price" label="平均单价" :value="`¥${avgPrice}`" trend="按所有商品计算" status="参考" />
+      <MetricCard icon="status" label="管理状态" value="在线" trend="批次录入与存证可用" status="稳定" />
     </section>
 
     <section class="chart-grid">
@@ -143,40 +144,61 @@ onMounted(loadFruits)
 
     <section class="panel form-grid-3">
       <div>
-        <h3>新增水果</h3>
+        <h3 class="panel-title">
+          <span class="title-icon"><NavIcon name="plus" /></span>
+          <span>新增水果</span>
+        </h3>
         <input v-model="fruitForm.fruitName" placeholder="水果名称" />
         <input v-model="fruitForm.category" placeholder="分类" />
         <input v-model="fruitForm.origin" placeholder="产地" />
         <input v-model="fruitForm.unit" placeholder="单位，如 kg" />
         <input v-model.number="fruitForm.unitPrice" type="number" placeholder="单价" />
         <textarea v-model="fruitForm.description" rows="3" placeholder="商品描述" />
-        <button class="btn btn-primary" @click="addFruit">提交</button>
+        <button class="btn btn-primary" @click="addFruit">
+          <span class="btn-icon"><NavIcon name="plus" /></span>
+          <span>提交</span>
+        </button>
       </div>
 
       <div>
-        <h3>创建批次</h3>
+        <h3 class="panel-title">
+          <span class="title-icon"><NavIcon name="package" /></span>
+          <span>创建批次</span>
+        </h3>
         <input v-model.number="batchForm.fruitId" type="number" placeholder="fruitId" />
         <input v-model="batchForm.batchNo" placeholder="批次号" />
         <input v-model="batchForm.traceId" placeholder="溯源码（可留空自动生成）" />
         <input v-model="batchForm.harvestDate" type="date" />
         <input v-model="batchForm.expireDate" type="date" />
         <input v-model.number="batchForm.quantity" type="number" placeholder="数量" />
-        <button class="btn btn-primary" @click="addBatch">提交</button>
+        <button class="btn btn-primary" @click="addBatch">
+          <span class="btn-icon"><NavIcon name="plus" /></span>
+          <span>提交</span>
+        </button>
       </div>
 
       <div>
-        <h3>新增溯源事件</h3>
+        <h3 class="panel-title">
+          <span class="title-icon"><NavIcon name="verify" /></span>
+          <span>新增溯源事件</span>
+        </h3>
         <input v-model.number="eventForm.batchId" type="number" placeholder="batchId" />
         <input v-model="eventForm.eventType" placeholder="事件类型，如 QUALITY_CHECK" />
         <input v-model="eventForm.eventTime" type="datetime-local" />
         <input v-model="eventForm.location" placeholder="地点" />
         <textarea v-model="eventForm.payloadJson" rows="3" placeholder="JSON 载荷" />
-        <button class="btn btn-primary" @click="addEvent">提交</button>
+        <button class="btn btn-primary" @click="addEvent">
+          <span class="btn-icon"><NavIcon name="plus" /></span>
+          <span>提交</span>
+        </button>
       </div>
     </section>
 
     <section class="panel">
-      <h3>商家水果列表</h3>
+      <h3 class="panel-title">
+        <span class="title-icon"><NavIcon name="merchant" /></span>
+        <span>商家水果列表</span>
+      </h3>
       <p class="success" v-if="message">{{ message }}</p>
       <p v-if="loading">加载中...</p>
       <div class="table-wrap" v-else>

@@ -1,5 +1,5 @@
-<script setup>
-import { onMounted, ref, watch } from 'vue'
+﻿<script setup>
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import AppSidebar from './AppSidebar.vue'
 
 defineProps({
@@ -8,23 +8,51 @@ defineProps({
 })
 
 const collapsed = ref(false)
+const navPhase = ref('idle')
+let phaseTimer = null
 
 onMounted(() => {
   collapsed.value = localStorage.getItem('tracemall_sidebar_collapsed') === '1'
+})
+
+onBeforeUnmount(() => {
+  if (phaseTimer) {
+    clearTimeout(phaseTimer)
+  }
 })
 
 watch(collapsed, (value) => {
   localStorage.setItem('tracemall_sidebar_collapsed', value ? '1' : '0')
 })
 
+function markPhaseIdle() {
+  if (phaseTimer) {
+    clearTimeout(phaseTimer)
+  }
+  phaseTimer = setTimeout(() => {
+    navPhase.value = 'idle'
+  }, 420)
+}
+
 function toggleSidebar() {
-  collapsed.value = !collapsed.value
+  if (collapsed.value) {
+    collapsed.value = false
+    navPhase.value = 'expanding'
+    markPhaseIdle()
+    return
+  }
+
+  navPhase.value = 'collapsing'
+  requestAnimationFrame(() => {
+    collapsed.value = true
+  })
+  markPhaseIdle()
 }
 </script>
 
 <template>
   <div :class="['shell', { collapsed }]">
-    <AppSidebar :collapsed="collapsed" @toggle="toggleSidebar" />
+    <AppSidebar :collapsed="collapsed" :phase="navPhase" @toggle="toggleSidebar" />
     <main class="content">
       <header class="page-head">
         <h1>{{ title }}</h1>

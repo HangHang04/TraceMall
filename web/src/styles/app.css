@@ -69,14 +69,26 @@
   transition:
     max-width 0.4s cubic-bezier(0.2, 0.9, 0.25, 1),
     transform 0.4s cubic-bezier(0.2, 0.9, 0.25, 1),
-    opacity 0.15s ease 0.3s;
+    opacity 0.16s ease;
 }
 
 .brand-title {
-  font-size: 30px;
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  white-space: nowrap;
+  font-size: 28px;
   line-height: 1;
-  font-weight: 500;
+  font-weight: 460;
   letter-spacing: 0.01em;
+}
+
+.brand-word {
+  display: inline-block;
+  max-width: 120px;
+  overflow: hidden;
+  opacity: 1;
+  transition: max-width 0.22s ease, opacity 0.16s ease, transform 0.22s ease;
 }
 
 .brand-subtitle {
@@ -121,7 +133,7 @@
 }
 
 .menu-label {
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 500;
   white-space: nowrap;
   max-width: 170px;
@@ -198,6 +210,26 @@
   transition: max-width 0.3s ease, opacity 0.22s ease, transform 0.3s ease;
 }
 
+.sidebar.phase-collapsing .brand-word.second {
+  max-width: 0;
+  opacity: 0;
+  transform: translateX(-8px);
+}
+
+.sidebar.phase-collapsing .brand-word.first,
+.sidebar.phase-collapsing .brand-subtitle {
+  opacity: 0;
+  transform: translateX(-8px);
+  transition-duration: 0.08s;
+  transition-delay: 0.03s;
+}
+
+.sidebar.phase-expanding .brand-text {
+  max-width: 0;
+  opacity: 0;
+  transform: translateX(-10px);
+}
+
 .sidebar.collapsed .brand-text {
   max-width: 0;
   opacity: 0;
@@ -234,6 +266,10 @@
 .sidebar.collapsed .logout-btn {
   width: 44px;
   padding: 10px 0;
+}
+
+.sidebar.collapsed .btn-text {
+  display: none;
 }
 
 .content {
@@ -365,6 +401,10 @@ textarea:focus {
   font-weight: 600;
   cursor: pointer;
   transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .btn:hover {
@@ -380,6 +420,22 @@ textarea:focus {
 .btn-ghost {
   background: rgba(237, 246, 240, 0.9);
   color: #1d553e;
+}
+
+.btn-icon {
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.btn-icon svg {
+  width: 16px;
+  height: 16px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .metrics-grid {
@@ -405,6 +461,31 @@ textarea:focus {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 14px;
+}
+
+.metric-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.metric-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.metric-icon svg {
+  width: 14px;
+  height: 14px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .metric-value {
@@ -450,6 +531,31 @@ textarea:focus {
 .panel-head p {
   color: var(--muted);
   font-size: 13px;
+}
+
+.panel-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.title-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(49, 186, 113, 0.16);
+  color: #1f6f4d;
+}
+
+.title-icon svg {
+  width: 14px;
+  height: 14px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .verify-panel {

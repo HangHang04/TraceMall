@@ -1,14 +1,18 @@
 ﻿<script setup>
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useAuthStore } from '@/stores/auth'
 import NavIcon from '@/components/ui/NavIcon.vue'
+import { useAuthStore } from '@/stores/auth'
 import { toRoleLabel } from '@/utils/status'
 
 const props = defineProps({
   collapsed: {
     type: Boolean,
     default: false,
+  },
+  phase: {
+    type: String,
+    default: 'idle',
   },
 })
 
@@ -43,12 +47,24 @@ function logout() {
 </script>
 
 <template>
-  <aside :class="['sidebar', { collapsed: props.collapsed }]">
+  <aside
+    :class="[
+      'sidebar',
+      {
+        collapsed: props.collapsed,
+        'phase-collapsing': props.phase === 'collapsing',
+        'phase-expanding': props.phase === 'expanding',
+      },
+    ]"
+  >
     <div class="sidebar-top">
       <button class="brand" @click="emit('toggle')" :title="props.collapsed ? '展开导航栏' : '收起导航栏'">
         <div class="brand-logo">T</div>
         <div class="brand-text">
-          <div class="brand-title">Trace Mall</div>
+          <div class="brand-title">
+            <span class="brand-word first">Trace</span>
+            <span class="brand-word second">Mall</span>
+          </div>
           <div class="brand-subtitle">可溯源水果商城</div>
         </div>
       </button>
@@ -70,7 +86,10 @@ function logout() {
     <div :class="['sidebar-user', { compact: props.collapsed }]">
       <div class="chip role">{{ toRoleLabel(auth.role) }}</div>
       <div class="username">{{ auth.username || '访客' }}</div>
-      <button class="btn btn-ghost logout-btn" @click="logout">{{ props.collapsed ? '↩' : '退出登录' }}</button>
+      <button class="btn btn-ghost logout-btn" @click="logout">
+        <span class="btn-icon"><NavIcon name="logout" /></span>
+        <span class="btn-text">{{ props.collapsed ? '退出' : '退出登录' }}</span>
+      </button>
     </div>
   </aside>
 </template>

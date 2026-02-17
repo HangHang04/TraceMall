@@ -1,9 +1,10 @@
-<script setup>
+﻿<script setup>
 import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import AppShell from '@/components/layout/AppShell.vue'
 import FilterBar from '@/components/ui/FilterBar.vue'
 import MetricCard from '@/components/ui/MetricCard.vue'
+import NavIcon from '@/components/ui/NavIcon.vue'
 import VerifyResultPanel from '@/components/ui/VerifyResultPanel.vue'
 import { listFruits, verifyTrace } from '@/api'
 import { useCartStore } from '@/stores/cart'
@@ -59,7 +60,9 @@ async function loadFruits() {
 
 function applyFilter(filter) {
   filtered.value = fruits.value.filter((item) => {
-    const keyword = String(filter.keyword || '').trim().toLowerCase()
+    const keyword = String(filter.keyword || '')
+      .trim()
+      .toLowerCase()
     const keywordOk = !keyword || String(item.fruitName || '').toLowerCase().includes(keyword)
     const categoryOk = !filter.category || String(item.category || '').includes(filter.category)
     return keywordOk && categoryOk
@@ -102,25 +105,34 @@ onMounted(async () => {
 <template>
   <AppShell title="商城主页" subtitle="选购水果并快速完成溯源码验真">
     <template #actions>
-      <button class="btn btn-primary" @click="router.push('/cart')">购物车 ({{ cart.count }})</button>
+      <button class="btn btn-primary" @click="router.push('/cart')">
+        <span class="btn-icon"><NavIcon name="cart" /></span>
+        <span>购物车 ({{ cart.count }})</span>
+      </button>
     </template>
 
     <FilterBar @apply="applyFilter" />
 
     <section class="metrics-grid">
-      <MetricCard label="在售商品" :value="totalProducts" trend="按筛选条件实时更新" status="在线" />
-      <MetricCard label="平均单价" :value="`¥${avgPrice}`" trend="当前列表均价" status="参考" />
-      <MetricCard label="购物车数量" :value="cart.count" trend="可直接提交订单" status="就绪" />
-      <MetricCard label="最近验真" :value="verifyHistory.length" trend="本地保存 8 条记录" status="安全" />
+      <MetricCard icon="package" label="在售商品" :value="totalProducts" trend="按筛选条件实时更新" status="在线" />
+      <MetricCard icon="price" label="平均单价" :value="`¥${avgPrice}`" trend="当前列表均价" status="参考" />
+      <MetricCard icon="cart" label="购物车数量" :value="cart.count" trend="可直接提交订单" status="就绪" />
+      <MetricCard icon="verify" label="最近验真" :value="verifyHistory.length" trend="本地保存 8 条记录" status="安全" />
     </section>
 
     <section class="panel verify-panel">
-      <h3>二维码验真</h3>
+      <h3 class="panel-title">
+        <span class="title-icon"><NavIcon name="verify" /></span>
+        <span>二维码验真</span>
+      </h3>
       <div class="verify-form">
         <input v-model="verifyInput.traceId" placeholder="TRACE-XXXX" />
         <input v-model="verifyInput.signature" placeholder="签名 signature" />
         <input v-model="verifyInput.geo" placeholder="地理位置，如 四川-成都" />
-        <button class="btn btn-primary" @click="doVerify">立即验真</button>
+        <button class="btn btn-primary" @click="doVerify">
+          <span class="btn-icon"><NavIcon name="verify" /></span>
+          <span>立即验真</span>
+        </button>
       </div>
       <p class="error" v-if="verifyError">{{ verifyError }}</p>
     </section>
@@ -128,7 +140,10 @@ onMounted(async () => {
     <VerifyResultPanel :result="verifyResult" />
 
     <section class="panel" v-if="verifyHistory.length">
-      <h3>最近验真记录</h3>
+      <h3 class="panel-title">
+        <span class="title-icon"><NavIcon name="orders" /></span>
+        <span>最近验真记录</span>
+      </h3>
       <div class="state-row" v-for="item in verifyHistory" :key="`${item.traceId}-${item.at}`">
         <span>{{ item.traceId }}</span>
         <span>{{ toVerifyStatusLabel(item.status) }}</span>
@@ -137,7 +152,10 @@ onMounted(async () => {
     </section>
 
     <section class="panel">
-      <h3>水果列表</h3>
+      <h3 class="panel-title">
+        <span class="title-icon"><NavIcon name="package" /></span>
+        <span>水果列表</span>
+      </h3>
       <p v-if="loading">加载中...</p>
       <div class="fruit-grid" v-else>
         <article class="fruit-card" v-for="item in filtered" :key="item.id">
@@ -147,8 +165,14 @@ onMounted(async () => {
             <p class="price">¥{{ item.unitPrice }} / {{ item.unit }}</p>
           </div>
           <div class="card-actions">
-            <button class="btn btn-ghost" @click="router.push(`/product/${item.id}`)">详情</button>
-            <button class="btn btn-primary" @click="addToCart(item)">加入购物车</button>
+            <button class="btn btn-ghost" @click="router.push(`/product/${item.id}`)">
+              <span class="btn-icon"><NavIcon name="orders" /></span>
+              <span>详情</span>
+            </button>
+            <button class="btn btn-primary" @click="addToCart(item)">
+              <span class="btn-icon"><NavIcon name="plus" /></span>
+              <span>加入购物车</span>
+            </button>
           </div>
         </article>
       </div>

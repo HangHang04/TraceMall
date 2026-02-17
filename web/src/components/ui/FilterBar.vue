@@ -1,5 +1,6 @@
-<script setup>
+﻿<script setup>
 import { reactive } from 'vue'
+import NavIcon from '@/components/ui/NavIcon.vue'
 
 const emit = defineEmits(['apply'])
 
@@ -38,8 +39,14 @@ function reset() {
       </select>
     </div>
     <div class="filter-actions">
-      <button class="btn btn-primary" @click="apply">应用筛选</button>
-      <button class="btn btn-ghost" @click="reset">重置</button>
+      <button class="btn btn-primary" @click="apply">
+        <span class="btn-icon"><NavIcon name="filter" /></span>
+        <span>应用筛选</span>
+      </button>
+      <button class="btn btn-ghost" @click="reset">
+        <span class="btn-icon"><NavIcon name="refresh" /></span>
+        <span>重置</span>
+      </button>
     </div>
   </section>
 </template>
