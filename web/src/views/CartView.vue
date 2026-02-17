@@ -1,6 +1,7 @@
-<script setup>
+﻿<script setup>
 import { useRouter } from 'vue-router'
 import AppShell from '@/components/layout/AppShell.vue'
+import NavIcon from '@/components/ui/NavIcon.vue'
 import { useCartStore } from '@/stores/cart'
 import { createOrder } from '@/api'
 
@@ -28,7 +29,10 @@ async function checkout() {
 <template>
   <AppShell title="购物车" subtitle="确认订单并提交支付流程">
     <section class="panel">
-      <h3>购物车商品</h3>
+      <h3 class="panel-title">
+        <span class="title-icon"><NavIcon name="cart" /></span>
+        <span>购物车商品</span>
+      </h3>
       <div v-if="!cart.items.length">暂无商品</div>
       <div v-else class="table-wrap">
         <table class="table">
@@ -49,14 +53,22 @@ async function checkout() {
               <td>{{ item.quantity }}</td>
               <td>¥{{ item.unitPrice }}</td>
               <td>¥{{ (Number(item.quantity) * Number(item.unitPrice)).toFixed(2) }}</td>
-              <td><button class="btn btn-ghost" @click="cart.remove(item.batchId)">移除</button></td>
+              <td>
+                <button class="btn btn-ghost" @click="cart.remove(item.batchId)">
+                  <span class="btn-icon"><NavIcon name="refresh" /></span>
+                  <span>移除</span>
+                </button>
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
       <div class="cart-foot">
         <strong>总计：¥{{ cart.total.toFixed(2) }}</strong>
-        <button class="btn btn-primary" @click="checkout">提交订单</button>
+        <button class="btn btn-primary" @click="checkout">
+          <span class="btn-icon"><NavIcon name="orders" /></span>
+          <span>提交订单</span>
+        </button>
       </div>
     </section>
   </AppShell>

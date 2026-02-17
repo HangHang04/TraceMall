@@ -1,7 +1,8 @@
-<script setup>
+﻿<script setup>
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import AppShell from '@/components/layout/AppShell.vue'
+import NavIcon from '@/components/ui/NavIcon.vue'
 import TraceTimeline from '@/components/ui/TraceTimeline.vue'
 import { getFruit, traceDetail } from '@/api'
 import { toBatchStatusLabel } from '@/utils/status'
@@ -34,17 +35,26 @@ onMounted(async () => {
 <template>
   <AppShell title="商品详情" subtitle="查看商品信息与完整溯源链路">
     <section class="panel" v-if="fruit">
-      <h3>{{ fruit.fruitName }}</h3>
+      <h3 class="panel-title">
+        <span class="title-icon"><NavIcon name="package" /></span>
+        <span>{{ fruit.fruitName }}</span>
+      </h3>
       <p>{{ fruit.category }} · {{ fruit.origin }}</p>
       <p class="price">¥{{ fruit.unitPrice }} / {{ fruit.unit }}</p>
       <p>{{ fruit.description }}</p>
     </section>
 
     <section class="panel">
-      <h3>溯源查询</h3>
+      <h3 class="panel-title">
+        <span class="title-icon"><NavIcon name="verify" /></span>
+        <span>溯源查询</span>
+      </h3>
       <div class="verify-form">
         <input v-model="traceId" placeholder="TRACE-XXXX" />
-        <button class="btn btn-primary" @click="loadTrace">查询</button>
+        <button class="btn btn-primary" @click="loadTrace">
+          <span class="btn-icon"><NavIcon name="verify" /></span>
+          <span>查询</span>
+        </button>
       </div>
       <p class="error" v-if="error">{{ error }}</p>
       <div v-if="trace?.summary" class="trace-summary">

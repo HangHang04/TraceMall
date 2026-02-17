@@ -1,6 +1,7 @@
-<script setup>
+﻿<script setup>
 import { onMounted, ref } from 'vue'
 import AppShell from '@/components/layout/AppShell.vue'
+import NavIcon from '@/components/ui/NavIcon.vue'
 import RiskBadge from '@/components/ui/RiskBadge.vue'
 import { listAuditLogs, listRiskAlerts } from '@/api'
 
@@ -18,7 +19,10 @@ onMounted(loadData)
 <template>
   <AppShell title="监管视图" subtitle="风险告警与审计日志基础面板">
     <section class="panel">
-      <h3>风险告警</h3>
+      <h3 class="panel-title">
+        <span class="title-icon"><NavIcon name="regulator" /></span>
+        <span>风险告警</span>
+      </h3>
       <div class="table-wrap">
         <table class="table">
           <thead>
@@ -44,7 +48,10 @@ onMounted(loadData)
     </section>
 
     <section class="panel">
-      <h3>审计日志</h3>
+      <h3 class="panel-title">
+        <span class="title-icon"><NavIcon name="orders" /></span>
+        <span>审计日志</span>
+      </h3>
       <div class="table-wrap">
         <table class="table">
           <thead>

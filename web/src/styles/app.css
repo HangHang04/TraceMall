@@ -133,8 +133,9 @@
 }
 
 .menu-label {
-  font-size: 17px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 460;
+  line-height: 1.15;
   white-space: nowrap;
   max-width: 170px;
   overflow: hidden;
@@ -270,6 +271,10 @@
 
 .sidebar.collapsed .btn-text {
   display: none;
+}
+
+.sidebar.collapsed .logout-btn {
+  min-height: 40px;
 }
 
 .content {
@@ -666,6 +671,10 @@ textarea:focus {
   padding: 10px;
   border-bottom: 1px solid var(--line);
   text-align: left;
+}
+
+.table td .btn {
+  min-height: 36px;
 }
 
 .cart-foot {

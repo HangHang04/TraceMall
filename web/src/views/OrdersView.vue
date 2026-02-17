@@ -1,6 +1,7 @@
-<script setup>
+﻿<script setup>
 import { onMounted, ref } from 'vue'
 import AppShell from '@/components/layout/AppShell.vue'
+import NavIcon from '@/components/ui/NavIcon.vue'
 import { listMyOrders, payOrder } from '@/api'
 import { toOrderStatusLabel } from '@/utils/status'
 
@@ -27,7 +28,10 @@ onMounted(loadOrders)
 <template>
   <AppShell title="我的订单" subtitle="模拟支付并查看订单状态流转">
     <section class="panel">
-      <h3>订单列表</h3>
+      <h3 class="panel-title">
+        <span class="title-icon"><NavIcon name="orders" /></span>
+        <span>订单列表</span>
+      </h3>
       <p v-if="loading">加载中...</p>
       <div class="table-wrap" v-else>
         <table class="table">
@@ -48,7 +52,8 @@ onMounted(loadOrders)
               <td>{{ order.paymentRef || '-' }}</td>
               <td>
                 <button class="btn btn-primary" v-if="order.status === 'PENDING_PAYMENT'" @click="pay(order.orderNo)">
-                  模拟支付
+                  <span class="btn-icon"><NavIcon name="verify" /></span>
+                  <span>模拟支付</span>
                 </button>
                 <span v-else>-</span>
               </td>
