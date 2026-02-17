@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+import NavIcon from '@/components/ui/NavIcon.vue'
 import { toRoleLabel } from '@/utils/status'
 
 const props = defineProps({
@@ -19,15 +20,15 @@ const auth = useAuthStore()
 
 const navItems = computed(() => {
   if (auth.role === 'MERCHANT') {
-    return [{ key: 'merchant', icon: '▦', label: '商家看板', path: '/merchant' }]
+    return [{ key: 'merchant', icon: 'merchant', label: '商家看板', path: '/merchant' }]
   }
   if (auth.role === 'REGULATOR') {
-    return [{ key: 'regulator', icon: '◈', label: '监管视图', path: '/regulator' }]
+    return [{ key: 'regulator', icon: 'regulator', label: '监管视图', path: '/regulator' }]
   }
   return [
-    { key: 'dashboard', icon: '⌂', label: '商城主页', path: '/dashboard' },
-    { key: 'cart', icon: '◍', label: '购物车', path: '/cart' },
-    { key: 'orders', icon: '☰', label: '我的订单', path: '/orders' },
+    { key: 'dashboard', icon: 'home', label: '商城主页', path: '/dashboard' },
+    { key: 'cart', icon: 'cart', label: '购物车', path: '/cart' },
+    { key: 'orders', icon: 'orders', label: '我的订单', path: '/orders' },
   ]
 })
 
@@ -61,7 +62,7 @@ function logout() {
         :title="item.label"
         @click="router.push(item.path)"
       >
-        <span class="menu-icon">{{ item.icon }}</span>
+        <span class="menu-icon"><NavIcon :name="item.icon" /></span>
         <span class="menu-label">{{ item.label }}</span>
       </button>
     </nav>
