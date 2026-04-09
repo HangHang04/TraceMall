@@ -1,4 +1,4 @@
-﻿<script setup>
+<script setup>
 import { onMounted, ref } from 'vue'
 import AppShell from '@/components/layout/AppShell.vue'
 import NavIcon from '@/components/ui/NavIcon.vue'
@@ -26,13 +26,14 @@ onMounted(loadOrders)
 </script>
 
 <template>
-  <AppShell title="我的订单" subtitle="模拟支付并查看订单状态流转">
+  <AppShell title="我的订单" subtitle="查看支付状态和订单流转。">
     <section class="panel">
       <h3 class="panel-title">
         <span class="title-icon"><NavIcon name="orders" /></span>
         <span>订单列表</span>
       </h3>
       <p v-if="loading">加载中...</p>
+      <div class="empty-state" v-else-if="!orders.length">还没有订单记录，可以先去首页挑选商品。</div>
       <div class="table-wrap" v-else>
         <table class="table">
           <thead>
@@ -46,7 +47,7 @@ onMounted(loadOrders)
           </thead>
           <tbody>
             <tr v-for="order in orders" :key="order.orderNo">
-              <td>{{ order.orderNo }}</td>
+              <td><strong>{{ order.orderNo }}</strong></td>
               <td>{{ toOrderStatusLabel(order.status) }}</td>
               <td>¥{{ order.payableAmount }}</td>
               <td>{{ order.paymentRef || '-' }}</td>

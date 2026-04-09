@@ -5,6 +5,7 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     { path: '/login', name: 'login', component: () => import('@/views/LoginView.vue') },
+    { path: '/trace/scan', name: 'trace-scan', component: () => import('@/views/TraceScanView.vue') },
     { path: '/', redirect: '/dashboard' },
     {
       path: '/dashboard',
@@ -53,7 +54,7 @@ router.beforeEach((to) => {
   if (!auth.token) {
     return '/login'
   }
-  const roles = to.meta.roles || []
+  const roles = Array.isArray(to.meta.roles) ? to.meta.roles : []
   if (roles.length > 0 && !roles.includes(auth.role)) {
     if (auth.role === 'MERCHANT') {
       return '/merchant'

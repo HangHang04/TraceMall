@@ -1,10 +1,26 @@
-﻿<script setup>
+<script setup>
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import AppSidebar from './AppSidebar.vue'
 
-defineProps({
+const props = defineProps({
   title: String,
   subtitle: String,
+  eyebrow: {
+    type: String,
+    default: 'TraceMall',
+  },
+  layout: {
+    type: String,
+    default: 'sidebar',
+  },
+  showPageHead: {
+    type: Boolean,
+    default: true,
+  },
+  contentClass: {
+    type: String,
+    default: '',
+  },
 })
 
 const collapsed = ref(false)
@@ -12,6 +28,7 @@ const navPhase = ref('idle')
 let phaseTimer = null
 
 onMounted(() => {
+  if (props.layout !== 'sidebar') return
   collapsed.value = localStorage.getItem('tracemall_sidebar_collapsed') === '1'
 })
 
@@ -22,6 +39,7 @@ onBeforeUnmount(() => {
 })
 
 watch(collapsed, (value) => {
+  if (props.layout !== 'sidebar') return
   localStorage.setItem('tracemall_sidebar_collapsed', value ? '1' : '0')
 })
 
@@ -31,35 +49,46 @@ function markPhaseIdle() {
   }
   phaseTimer = setTimeout(() => {
     navPhase.value = 'idle'
-  }, 420)
+  }, 320)
 }
 
 function toggleSidebar() {
-  if (collapsed.value) {
-    collapsed.value = false
-    navPhase.value = 'expanding'
-    markPhaseIdle()
-    return
-  }
-
-  navPhase.value = 'collapsing'
-  requestAnimationFrame(() => {
-    collapsed.value = true
-  })
+  collapsed.value = !collapsed.value
+  navPhase.value = collapsed.value ? 'collapsing' : 'expanding'
   markPhaseIdle()
 }
 </script>
 
 <template>
-  <div :class="['shell', { collapsed }]">
-    <AppSidebar :collapsed="collapsed" :phase="navPhase" @toggle="toggleSidebar" />
-    <main class="content">
-      <header class="page-head">
-        <h1>{{ title }}</h1>
-        <p>{{ subtitle }}</p>
-        <slot name="actions" />
-      </header>
-      <slot />
-    </main>
+  <div :class="['shell', `shell-${props.layout}`, { collapsed: props.layout === 'sidebar' && collapsed }]">
+    <template v-if="props.layout === 'sidebar'">
+      <AppSidebar :collapsed="collapsed" :phase="navPhase" @toggle="toggleSidebar" />
+      <main :class="['content', props.contentClass]">
+        <header class="page-head" v-if="props.showPageHead">
+          <div class="page-head-copy">
+            <div class="page-eyebrow">{{ eyebrow }}</div>
+            <h1>{{ title }}</h1>
+            <p v-if="subtitle">{{ subtitle }}</p>
+          </div>
+          <slot name="actions" />
+        </header>
+        <slot />
+      </main>
+    </template>
+
+    <template v-else>
+      <slot name="topbar" />
+      <main :class="['content', 'content-topbar', props.contentClass]">
+        <header class="page-head" v-if="props.showPageHead">
+          <div class="page-head-copy">
+            <div class="page-eyebrow">{{ eyebrow }}</div>
+            <h1>{{ title }}</h1>
+            <p v-if="subtitle">{{ subtitle }}</p>
+          </div>
+          <slot name="actions" />
+        </header>
+        <slot />
+      </main>
+    </template>
   </div>
 </template>

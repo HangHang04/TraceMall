@@ -154,6 +154,141 @@ defineProps({
     <path d="M9 12h9" />
   </svg>
 
+  <svg
+    v-else-if="name === 'scan'"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.9"
+    aria-hidden="true"
+  >
+    <path d="M7 4H5a1 1 0 0 0-1 1v2M17 4h2a1 1 0 0 1 1 1v2M7 20H5a1 1 0 0 1-1-1v-2M17 20h2a1 1 0 0 0 1-1v-2" />
+    <path d="M8 12h8M8 9.2h5.2M8 14.8h6.4" />
+  </svg>
+
+  <svg
+    v-else-if="name === 'camera'"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.9"
+    aria-hidden="true"
+  >
+    <path d="M4 8.5a2 2 0 0 1 2-2h2.1l1.2-1.8h5.4l1.2 1.8H18a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z" />
+    <circle cx="12" cy="12.5" r="3.6" />
+  </svg>
+
+  <svg
+    v-else-if="name === 'search'"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.9"
+    aria-hidden="true"
+  >
+    <circle cx="11" cy="11" r="6.5" />
+    <path d="m16 16 4.2 4.2" />
+  </svg>
+
+  <svg
+    v-else-if="name === 'calendar'"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.9"
+    aria-hidden="true"
+  >
+    <rect x="3.5" y="5.5" width="17" height="15" rx="2.4" />
+    <path d="M8 3.8v3.4M16 3.8v3.4M3.5 9.5h17" />
+  </svg>
+
+  <svg
+    v-else-if="name === 'bell'"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.9"
+    aria-hidden="true"
+  >
+    <path d="M6.5 16.5h11l-1.3-1.7V11a4.7 4.7 0 1 0-9.4 0v3.8z" />
+    <path d="M10 18.5a2.2 2.2 0 0 0 4 0" />
+  </svg>
+
+  <svg
+    v-else-if="name === 'help'"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.9"
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="8" />
+    <path d="M9.7 9.2a2.7 2.7 0 1 1 3.9 2.4c-.9.5-1.6 1.2-1.6 2.4" />
+    <circle cx="12" cy="17.2" r=".8" fill="currentColor" stroke="none" />
+  </svg>
+
+  <svg
+    v-else-if="name === 'dashboard'"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.9"
+    aria-hidden="true"
+  >
+    <rect x="4" y="4" width="7" height="7" rx="1.8" />
+    <rect x="13" y="4" width="7" height="11" rx="1.8" />
+    <rect x="4" y="13" width="7" height="7" rx="1.8" />
+    <rect x="13" y="17" width="7" height="3" rx="1.5" />
+  </svg>
+
+  <svg
+    v-else-if="name === 'insights'"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.9"
+    aria-hidden="true"
+  >
+    <path d="M4 18h16" />
+    <path d="m5.5 14.5 4.2-4.2 3.1 3.1 5.7-6.2" />
+    <path d="M15.6 7.2h2.9V10" />
+  </svg>
+
+  <svg
+    v-else-if="name === 'assistant'"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.9"
+    aria-hidden="true"
+  >
+    <rect x="5" y="6" width="14" height="11" rx="4" />
+    <path d="M9 6V4.4M15 6V4.4M9.3 11.2h.01M14.7 11.2h.01M9 14.2c1 .7 2 .9 3 .9s2-.2 3-.9" />
+  </svg>
+
+  <svg
+    v-else-if="name === 'spark'"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.9"
+    aria-hidden="true"
+  >
+    <path d="m12 3 1.9 4.8L19 10l-5.1 2.1L12 17l-1.9-4.9L5 10l5.1-2.2L12 3Z" />
+    <path d="M5 18.5 6.2 21 8 22.2 6.2 23.4 5 26l-1.2-2.6L2 22.2 3.8 21z" transform="translate(0 -4)" />
+  </svg>
+
+  <svg
+    v-else-if="name === 'chain'"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.9"
+    aria-hidden="true"
+  >
+    <path d="M9 8.5 6.5 11a3 3 0 0 0 4.2 4.2l2-2M15 15.5l2.5-2.5A3 3 0 0 0 13.3 8.8l-2 2" />
+  </svg>
+
   <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true">
     <circle cx="12" cy="12" r="7" />
   </svg>
