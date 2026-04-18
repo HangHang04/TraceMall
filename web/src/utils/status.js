@@ -29,10 +29,10 @@ export const VERIFY_STATUS_MAP = {
 export const VERIFY_REASON_MAP = {
   'verify passed': '校验通过',
   'signature mismatch': '签名不一致',
-  'anchor mismatch': '锚点校验不一致',
-  'trace code not found': '溯源码不存在',
-  'traceId format invalid': '溯源码格式非法',
-  'frequent scan anomaly': '高频或异地扫描异常',
+  'anchor mismatch': '链上锚点不一致',
+  'trace code not found': '未找到该溯源码',
+  'traceId format invalid': '溯源码格式不合法',
+  'frequent scan anomaly': '扫描频次或地理位置异常',
 }
 
 export function toOrderStatusLabel(status) {
@@ -57,7 +57,7 @@ export function toVerifyReasonLabel(reason) {
 
 export function toRoleLabel(role) {
   if (role === 'CONSUMER') return '用户'
-  if (role === 'MERCHANT') return '商家'
-  if (role === 'REGULATOR') return 'REGULATOR'
+  if (role === 'MERCHANT') return '商户'
+  if (role === 'REGULATOR') return '监管方'
   return role || '-'
 }

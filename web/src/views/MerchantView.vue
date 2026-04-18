@@ -1,4 +1,4 @@
-﻿<script setup>
+<script setup>
 import { computed, onMounted, reactive, ref } from 'vue'
 import AppShell from '@/components/layout/AppShell.vue'
 import ChartPanel from '@/components/ui/ChartPanel.vue'
@@ -58,7 +58,7 @@ const categoryOption = computed(() => {
     xAxis: { type: 'category', data: Object.keys(countMap) },
     yAxis: { type: 'value' },
     tooltip: { trigger: 'axis' },
-    series: [{ type: 'bar', data: Object.values(countMap), itemStyle: { color: '#1f8f57' } }],
+    series: [{ type: 'bar', data: Object.values(countMap), itemStyle: { color: '#6b835b' } }],
     grid: { left: 36, right: 12, top: 20, bottom: 24 },
   }
 })
@@ -72,8 +72,8 @@ const priceOption = computed(() => ({
       type: 'line',
       smooth: true,
       data: fruits.value.slice(0, 8).map((item) => Number(item.unitPrice || 0)),
-      itemStyle: { color: '#2dc76f' },
-      areaStyle: { color: 'rgba(45, 199, 111, 0.15)' },
+      itemStyle: { color: '#a06b3f' },
+      areaStyle: { color: 'rgba(160, 107, 63, 0.14)' },
     },
   ],
   grid: { left: 36, right: 12, top: 20, bottom: 24 },
@@ -129,7 +129,19 @@ onMounted(loadFruits)
 </script>
 
 <template>
-  <AppShell title="商家看板" subtitle="数据分析 + 商品上架 + 批次/事件管理">
+  <AppShell title="商户工作台" subtitle="录入商品、创建批次并维护溯源事件">
+    <section class="merchant-hero panel">
+      <div>
+        <p class="merchant-kicker">Merchant Operations</p>
+        <h2>围绕商品、批次和事件三条主线完成日常录入。</h2>
+      </div>
+      <div class="merchant-summary">
+        <div><span>商品数</span><strong>{{ fruits.length }}</strong></div>
+        <div><span>在售中</span><strong>{{ onSaleCount }}</strong></div>
+        <div><span>均价</span><strong>¥{{ avgPrice }}</strong></div>
+      </div>
+    </section>
+
     <section class="metrics-grid">
       <MetricCard icon="package" label="商品总数" :value="fruits.length" trend="当前商家名下商品" status="统计" />
       <MetricCard icon="merchant" label="在售商品" :value="onSaleCount" trend="可直接售卖" status="在售" />
@@ -138,16 +150,16 @@ onMounted(loadFruits)
     </section>
 
     <section class="chart-grid">
-      <ChartPanel title="商品分类分布" subtitle="用于查看当前上架结构" :option="categoryOption" />
-      <ChartPanel title="价格趋势（前8项）" subtitle="快速观察价格带" :option="priceOption" />
+      <ChartPanel title="商品分类分布" subtitle="查看当前上架结构" :option="categoryOption" />
+      <ChartPanel title="价格趋势（前 8 项）" subtitle="快速观察价格带" :option="priceOption" />
     </section>
 
-    <section class="panel form-grid-3">
-      <div>
-        <h3 class="panel-title">
-          <span class="title-icon"><NavIcon name="plus" /></span>
-          <span>新增水果</span>
-        </h3>
+    <section class="merchant-form-grid">
+      <section class="panel form-panel">
+        <div class="panel-head">
+          <h3>新增水果</h3>
+          <p>先录入商品基础资料，再进入批次环节。</p>
+        </div>
         <input v-model="fruitForm.fruitName" placeholder="水果名称" />
         <input v-model="fruitForm.category" placeholder="分类" />
         <input v-model="fruitForm.origin" placeholder="产地" />
@@ -158,16 +170,16 @@ onMounted(loadFruits)
           <span class="btn-icon"><NavIcon name="plus" /></span>
           <span>提交</span>
         </button>
-      </div>
+      </section>
 
-      <div>
-        <h3 class="panel-title">
-          <span class="title-icon"><NavIcon name="package" /></span>
-          <span>创建批次</span>
-        </h3>
+      <section class="panel form-panel">
+        <div class="panel-head">
+          <h3>创建批次</h3>
+          <p>绑定 fruitId、批次号和溯源码。</p>
+        </div>
         <input v-model.number="batchForm.fruitId" type="number" placeholder="fruitId" />
         <input v-model="batchForm.batchNo" placeholder="批次号" />
-        <input v-model="batchForm.traceId" placeholder="溯源码（可留空自动生成）" />
+        <input v-model="batchForm.traceId" placeholder="溯源码（留空自动生成）" />
         <input v-model="batchForm.harvestDate" type="date" />
         <input v-model="batchForm.expireDate" type="date" />
         <input v-model.number="batchForm.quantity" type="number" placeholder="数量" />
@@ -175,13 +187,13 @@ onMounted(loadFruits)
           <span class="btn-icon"><NavIcon name="plus" /></span>
           <span>提交</span>
         </button>
-      </div>
+      </section>
 
-      <div>
-        <h3 class="panel-title">
-          <span class="title-icon"><NavIcon name="verify" /></span>
-          <span>新增溯源事件</span>
-        </h3>
+      <section class="panel form-panel">
+        <div class="panel-head">
+          <h3>新增溯源事件</h3>
+          <p>用于质检、仓储、运输等关键节点存证。</p>
+        </div>
         <input v-model.number="eventForm.batchId" type="number" placeholder="batchId" />
         <input v-model="eventForm.eventType" placeholder="事件类型，如 QUALITY_CHECK" />
         <input v-model="eventForm.eventTime" type="datetime-local" />
@@ -191,14 +203,14 @@ onMounted(loadFruits)
           <span class="btn-icon"><NavIcon name="plus" /></span>
           <span>提交</span>
         </button>
-      </div>
+      </section>
     </section>
 
-    <section class="panel">
-      <h3 class="panel-title">
-        <span class="title-icon"><NavIcon name="merchant" /></span>
-        <span>商家水果列表</span>
-      </h3>
+    <section class="panel merchant-table-panel">
+      <div class="panel-head">
+        <h3>商家水果列表</h3>
+        <p>查看当前商品状态与价格信息。</p>
+      </div>
       <p class="success" v-if="message">{{ message }}</p>
       <p v-if="loading">加载中...</p>
       <div class="table-wrap" v-else>
@@ -226,3 +238,77 @@ onMounted(loadFruits)
     </section>
   </AppShell>
 </template>
+
+<style scoped>
+.merchant-hero,
+.merchant-table-panel {
+  padding: 24px;
+}
+
+.merchant-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.9fr);
+  gap: 20px;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(255, 225, 193, 0.42), transparent 24%),
+    linear-gradient(135deg, rgba(253, 248, 241, 0.96), rgba(240, 246, 237, 0.88));
+}
+
+.merchant-kicker {
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.merchant-hero h2 {
+  margin-top: 10px;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.6rem);
+  line-height: 1;
+}
+
+.merchant-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.merchant-summary div {
+  padding: 18px;
+  border-radius: 22px;
+  background: rgba(255, 251, 246, 0.78);
+  border: 1px solid rgba(113, 129, 102, 0.12);
+}
+
+.merchant-summary span {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.merchant-summary strong {
+  display: block;
+  margin-top: 6px;
+  font-size: 1.2rem;
+}
+
+.merchant-form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.form-panel {
+  display: grid;
+  gap: 10px;
+  padding: 22px;
+}
+
+@media (max-width: 1100px) {
+  .merchant-hero,
+  .merchant-form-grid,
+  .merchant-summary {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
