@@ -19,12 +19,10 @@ defineProps({
 <template>
   <article class="metric-card">
     <div class="metric-top">
-      <h4 class="metric-label">
-        <span class="metric-icon" v-if="icon"><NavIcon :name="icon" /></span>
-        <span>{{ label }}</span>
-      </h4>
+      <span class="metric-icon" v-if="icon"><NavIcon :name="icon" /></span>
       <span class="chip">{{ status }}</span>
     </div>
+    <p class="metric-label">{{ label }}</p>
     <p class="metric-value">{{ value }}</p>
     <p class="metric-trend">{{ trend }}</p>
   </article>

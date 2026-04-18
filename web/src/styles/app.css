@@ -1,5 +1,5 @@
 .shell {
-  --sidebar-width: 260px;
+  --sidebar-width: 246px;
   min-height: 100vh;
   display: grid;
   grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
@@ -7,20 +7,20 @@
 }
 
 .shell.collapsed {
-  --sidebar-width: 98px;
+  --sidebar-width: 96px;
 }
 
 .sidebar {
   background:
-    radial-gradient(circle at 16% 0%, rgba(108, 224, 157, 0.22) 0%, rgba(108, 224, 157, 0) 52%),
-    linear-gradient(180deg, var(--brand-900), var(--brand-800));
-  color: #e6fff1;
-  padding: 22px 16px;
+    radial-gradient(circle at 12% 0%, rgba(255, 233, 204, 0.12) 0%, rgba(255, 233, 204, 0) 28%),
+    linear-gradient(180deg, #26392c 0%, #31493b 55%, #395646 100%);
+  color: #edf3ec;
+  padding: 16px 14px 14px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.06);
+  gap: 14px;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.04);
   overflow: hidden;
   transition: padding 0.42s cubic-bezier(0.2, 0.9, 0.25, 1);
 }
@@ -37,26 +37,27 @@
   align-items: center;
   gap: 12px;
   border: 0;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.05);
   color: inherit;
   cursor: pointer;
-  padding: 0;
+  padding: 10px;
   text-align: left;
-  min-height: 56px;
+  min-height: 62px;
+  border-radius: 20px;
   transform-origin: left center;
 }
 
 .brand-logo {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
-  background: linear-gradient(160deg, rgba(116, 231, 164, 0.94), rgba(98, 206, 145, 0.94));
+  width: 44px;
+  height: 44px;
+  border-radius: 16px;
+  background: linear-gradient(160deg, #97e1c2, #59b89f);
   display: grid;
   place-items: center;
-  color: #0f3d29;
-  font-weight: 700;
-  font-size: 28px;
-  box-shadow: inset 0 -8px 14px rgba(8, 46, 30, 0.2), 0 8px 22px rgba(10, 38, 26, 0.24);
+  color: #193f37;
+  font-weight: 800;
+  font-size: 24px;
+  box-shadow: inset 0 -10px 16px rgba(18, 65, 57, 0.18), 0 14px 30px rgba(8, 24, 20, 0.24);
   flex-shrink: 0;
   transition: transform 0.38s cubic-bezier(0.2, 0.9, 0.25, 1), border-radius 0.38s cubic-bezier(0.2, 0.9, 0.25, 1);
 }
@@ -77,10 +78,11 @@
   align-items: baseline;
   gap: 4px;
   white-space: nowrap;
-  font-size: 28px;
+  font-size: 1.6rem;
   line-height: 1;
-  font-weight: 460;
-  letter-spacing: 0.01em;
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 .brand-word {
@@ -92,49 +94,51 @@
 }
 
 .brand-subtitle {
-  color: #c8ecd8;
-  font-size: 13px;
-  margin-top: 8px;
+  color: rgba(237, 243, 236, 0.72);
+  font-size: 11px;
+  margin-top: 4px;
   white-space: nowrap;
   opacity: 0.92;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .menu {
   display: grid;
-  gap: 10px;
+  gap: 6px;
 }
 
 .menu-item {
   border: 0;
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.09);
-  color: #e8fff2;
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(237, 243, 236, 0.86);
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 12px 14px;
-  font-size: 14px;
+  padding: 10px 12px;
+  font-size: 13px;
   cursor: pointer;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(14px);
   transition: transform 0.24s ease, background-color 0.24s ease, box-shadow 0.24s ease, color 0.24s ease;
 }
 
 .menu-icon {
-  width: 30px;
-  height: 30px;
-  border-radius: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: 12px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.08);
   font-size: 18px;
   flex-shrink: 0;
   transition: transform 0.24s ease, background-color 0.24s ease;
 }
 
 .menu-label {
-  font-size: 14px;
-  font-weight: 460;
+  font-size: 13px;
+  font-weight: 600;
   line-height: 1.15;
   white-space: nowrap;
   max-width: 170px;
@@ -146,23 +150,23 @@
 }
 
 .menu-item:hover {
-  transform: translateY(-1px) scale(1.02);
-  background: linear-gradient(128deg, #75dfa0, #5ccf8b);
-  color: #0f3826;
-  box-shadow: 0 10px 24px rgba(15, 63, 41, 0.32);
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  box-shadow: 0 14px 28px rgba(8, 24, 20, 0.18);
 }
 
 .menu-item.active {
-  transform: translateY(-1px) scale(1.02);
-  background: linear-gradient(125deg, #95efb8, #67d890);
-  color: #103825;
-  box-shadow: 0 12px 28px rgba(19, 75, 49, 0.35);
+  transform: translateY(-1px);
+  background: linear-gradient(135deg, #f4eadc, #e9dbc5);
+  color: #294238;
+  box-shadow: 0 20px 34px rgba(10, 26, 21, 0.18);
 }
 
 .menu-item:hover .menu-icon,
 .menu-item.active .menu-icon {
-  transform: scale(1.08);
-  background: rgba(255, 255, 255, 0.35);
+  transform: scale(1.04);
+  background: rgba(255, 255, 255, 0.34);
 }
 
 .menu-icon svg {
@@ -174,9 +178,10 @@
 
 .sidebar-user {
   margin-top: auto;
-  background: rgba(255, 255, 255, 0.09);
-  border-radius: 16px;
-  padding: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 18px;
+  padding: 12px;
   display: grid;
   gap: 8px;
   transition: background-color 0.28s ease;
@@ -187,7 +192,7 @@
 }
 
 .username {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   max-width: 160px;
   white-space: nowrap;
@@ -200,15 +205,21 @@
 
 .logout-btn {
   width: 100%;
+  min-height: 38px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #edf3ec;
+  padding: 8px 12px;
 }
 
 .chip.role {
-  max-width: 120px;
+  max-width: 110px;
   white-space: nowrap;
   overflow: hidden;
   opacity: 1;
   transform: translateY(0);
   transition: max-width 0.3s ease, opacity 0.22s ease, transform 0.3s ease;
+  background: rgba(255, 255, 255, 0.12);
+  color: #f3f6ed;
 }
 
 .sidebar.phase-collapsing .brand-word.second {
@@ -278,7 +289,7 @@
 }
 
 .content {
-  padding: 22px;
+  padding: 26px 30px 30px;
   overflow: auto;
   position: relative;
 }
@@ -326,9 +337,11 @@
 }
 
 .page-head h1 {
-  font-size: 38px;
+  font-size: clamp(2.5rem, 3.4vw, 3.35rem);
   letter-spacing: -0.02em;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 0.96;
 }
 
 .page-head p {
@@ -445,45 +458,46 @@ textarea:focus {
 
 .metrics-grid {
   display: grid;
-  gap: 12px;
+  gap: 14px;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   margin-bottom: 16px;
 }
 
 .metric-card {
-  border-radius: var(--radius);
-  padding: 16px;
-  color: #f6fff9;
+  border-radius: 26px;
+  padding: 18px 18px 20px;
+  color: var(--text);
   background:
-    radial-gradient(circle at 90% -20%, rgba(175, 255, 210, 0.24), transparent 38%),
-    linear-gradient(145deg, #1f6b4c, #1f8053);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 12px 28px rgba(18, 74, 50, 0.24);
+    radial-gradient(circle at top right, rgba(255, 228, 195, 0.56), transparent 30%),
+    linear-gradient(180deg, rgba(255, 252, 247, 0.94), rgba(243, 247, 240, 0.88));
+  border: 1px solid rgba(123, 135, 113, 0.14);
+  box-shadow: 0 18px 34px rgba(96, 84, 63, 0.08);
 }
 
 .metric-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 14px;
+  margin-bottom: 18px;
 }
 
 .metric-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .metric-icon {
-  width: 22px;
-  height: 22px;
-  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  border-radius: 14px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.18);
+  background: rgba(142, 170, 127, 0.12);
+  color: #536c4c;
 }
 
 .metric-icon svg {
@@ -494,14 +508,16 @@ textarea:focus {
 }
 
 .metric-value {
-  font-size: 30px;
+  font-size: clamp(2rem, 2.6vw, 2.7rem);
   font-weight: 800;
+  letter-spacing: -0.03em;
 }
 
 .metric-trend {
   margin-top: 8px;
-  color: #bef5d6;
+  color: var(--muted);
   font-size: 13px;
+  line-height: 1.6;
 }
 
 .chip {
@@ -511,7 +527,8 @@ textarea:focus {
   padding: 4px 10px;
   border-radius: 999px;
   font-size: 12px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(142, 170, 127, 0.12);
+  color: #536c4c;
 }
 
 .chip.role {
@@ -726,7 +743,7 @@ textarea:focus {
   min-height: 100vh;
   display: grid;
   place-items: center;
-  padding: 20px;
+  padding: 28px;
 }
 
 .login-card {
@@ -789,7 +806,7 @@ textarea:focus {
 @media (max-width: 1279px) {
   .shell,
   .shell.collapsed {
-    --sidebar-width: 92px;
+    --sidebar-width: 88px;
   }
 
   .brand-text,
@@ -864,7 +881,7 @@ textarea:focus {
   }
 
   .content {
-    padding: 14px;
+    padding: 18px 14px 24px;
   }
 
   .page-head {

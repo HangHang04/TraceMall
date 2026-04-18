@@ -98,8 +98,8 @@ onMounted(loadData)
 .regulator-hero h2 {
   margin-top: 10px;
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 3.4rem);
-  line-height: 1;
+  font-size: clamp(1.5rem, 2.8vw, 2.35rem);
+  line-height: 1.08;
 }
 
 .regulator-summary {
@@ -132,6 +132,7 @@ onMounted(loadData)
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
+  margin-top: 22px;
 }
 
 .alert-list,

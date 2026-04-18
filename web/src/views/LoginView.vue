@@ -115,8 +115,8 @@ function fillAccount(username) {
 }
 
 .login-copy h1 {
-  font-size: clamp(3rem, 6vw, 5.4rem);
-  max-width: 9ch;
+  font-size: clamp(2rem, 4.2vw, 3.6rem);
+  max-width: 11ch;
 }
 
 .login-description {

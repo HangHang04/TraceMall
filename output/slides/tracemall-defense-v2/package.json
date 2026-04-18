@@ -1,0 +1,15 @@
+{
+  "name": "tracemall-defense-v2",
+  "version": "1.0.0",
+  "main": "答辩PPT.js",
+  "scripts": {
+    "generate": "node 答辩PPT.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "pptxgenjs": "^4.0.1"
+  }
+}

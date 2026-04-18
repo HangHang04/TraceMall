@@ -167,7 +167,7 @@ const operatingSignals = [
 .hero-copy { max-width: 640px; padding: 54px 0 32px; animation: fade-up 700ms cubic-bezier(0.2, 0.9, 0.2, 1) both; }
 .eyebrow { font-size: 0.86rem; letter-spacing: 0.24em; text-transform: uppercase; color: #6f7f62; }
 .hero-copy h1, .section-heading h2, .process-copy h2, .final-section h2 { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.03em; }
-.hero-copy h1 { margin-top: 18px; font-size: clamp(3.1rem, 7vw, 5.8rem); line-height: 0.93; max-width: 10ch; }
+.hero-copy h1 { margin-top: 18px; font-size: clamp(2.5rem, 5.1vw, 4.4rem); line-height: 0.98; max-width: 11ch; }
 .hero-text { margin-top: 22px; max-width: 560px; color: #556452; font-size: 1.05rem; line-height: 1.8; }
 .hero-cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
 .hero-visual { position: relative; height: min(680px, 72vh); min-height: 480px; display: flex; align-items: center; justify-content: center; animation: fade-up 820ms cubic-bezier(0.2, 0.9, 0.2, 1) both 80ms; }
@@ -225,7 +225,7 @@ const operatingSignals = [
 @media (max-width: 640px) {
   .hero-section { padding-inline: 16px; }
   .hero-nav, .hero-actions, .hero-cta, .final-actions { flex-direction: column; align-items: stretch; }
-  .hero-copy h1 { font-size: clamp(2.8rem, 16vw, 4.2rem); }
+  .hero-copy h1 { font-size: clamp(2.2rem, 12vw, 3.2rem); }
   .hero-visual { min-height: 420px; }
   .fruit-stage { border-radius: 30px; }
   .stage-copy { left: 20px; top: 20px; }
