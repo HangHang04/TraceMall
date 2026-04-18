@@ -1,35 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
 :root {
-  --bg: #f5f7f1;
+  --bg: #f4efe8;
   --bg-soft: #fafbf7;
   --bg-strong: #eef2e9;
   --surface: rgba(255, 255, 252, 0.92);
   --surface-strong: #ffffff;
   --surface-dark: #2b3d33;
   --surface-dark-soft: #394d42;
-  --text: #233744;
+  --panel: rgba(255, 251, 246, 0.84);
+  --text: #243126;
   --text-soft: #687680;
   --text-inverse: #f7f8f2;
+  --muted: #667262;
   --line: rgba(88, 106, 95, 0.12);
   --line-strong: rgba(88, 106, 95, 0.22);
-  --brand-900: #374d2d;
-  --brand-800: #48643a;
-  --brand-700: #5b7a47;
+  --brand-900: #34452f;
+  --brand-800: #4b6143;
+  --brand-700: #657e57;
   --brand-600: #70915a;
-  --brand-500: #8faa72;
+  --brand-500: #8eaa7f;
   --brand-300: #dce8cf;
   --accent-700: #7d8e60;
   --accent-500: #93a975;
-  --ok: #4f9f69;
-  --warn: #b38b4b;
-  --danger: #bd645a;
+  --ok: #5f8a5d;
+  --warn: #d9a457;
+  --danger: #c66f63;
+  --radius: 24px;
   --radius-2xl: 32px;
   --radius-xl: 24px;
   --radius-lg: 18px;
   --radius-md: 14px;
   --radius-sm: 10px;
+  --shadow: 0 24px 60px rgba(89, 80, 61, 0.1);
   --shadow-lg: 0 28px 70px rgba(34, 43, 39, 0.08);
   --shadow-md: 0 18px 34px rgba(34, 43, 39, 0.06);
   --shadow-sm: 0 8px 18px rgba(34, 43, 39, 0.04);
+  --font-sans: 'Manrope', 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', sans-serif;
+  --font-display: 'Cormorant Garamond', 'STSong', 'SimSun', serif;
 }
 
 * {
@@ -44,12 +52,16 @@ body {
   margin: 0;
   color: var(--text);
   background:
-    radial-gradient(circle at top left, rgba(143, 170, 114, 0.12), transparent 28%),
-    radial-gradient(circle at right 10%, rgba(125, 142, 96, 0.08), transparent 24%),
-    linear-gradient(180deg, #fbfcf8 0%, #f2f5ee 100%);
-  font-family: 'Segoe UI Variable', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    radial-gradient(circle at 10% 0%, rgba(255, 213, 164, 0.3) 0%, rgba(255, 213, 164, 0) 34%),
+    radial-gradient(circle at 100% 10%, rgba(163, 190, 150, 0.22) 0%, rgba(163, 190, 150, 0) 28%),
+    linear-gradient(180deg, #f8f3eb 0%, #eef2e8 100%);
+  font-family: var(--font-sans);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+}
+
+#app {
+  min-height: 100vh;
 }
 
 ::-webkit-scrollbar {
@@ -66,13 +78,6 @@ body {
 
 ::-webkit-scrollbar-track {
   background: transparent;
-}
-
-button,
-input,
-select,
-textarea {
-  font: inherit;
 }
 
 h1,
@@ -92,4 +97,11 @@ dt {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
 }

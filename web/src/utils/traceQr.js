@@ -48,7 +48,9 @@ export function parseTraceScanContent(raw) {
     if (result.traceId) {
       return result
     }
-  } catch {}
+  } catch {
+    // Non-URL payloads fall through to the next parser.
+  }
 
   try {
     const parsed = JSON.parse(text)
@@ -59,7 +61,9 @@ export function parseTraceScanContent(raw) {
     if (result.traceId) {
       return result
     }
-  } catch {}
+  } catch {
+    // Plain-text payloads fall through to regex extraction.
+  }
 
   const matchedTraceId = text.match(TRACE_ID_PATTERN)?.[0] || ''
   if (matchedTraceId) {

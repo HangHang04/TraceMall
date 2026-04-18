@@ -72,7 +72,9 @@ async function stopCameraScan() {
   try {
     await html5Qr.stop()
     await html5Qr.clear()
-  } catch {}
+  } catch {
+    // Ignore teardown failures from partially initialized scanners.
+  }
   scanning.value = false
 }
 

@@ -27,7 +27,9 @@ async function loadTrace(traceId) {
   if (!traceId) return
   try {
     trace.value = await traceDetail(traceId)
-  } catch {}
+  } catch {
+    // Keep the verify result visible even when the event timeline cannot be loaded.
+  }
 }
 
 async function submitVerify() {

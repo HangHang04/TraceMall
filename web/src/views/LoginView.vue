@@ -13,6 +13,12 @@ const form = reactive({
   password: '123456',
 })
 
+const demoAccounts = [
+  { label: '用户', value: 'consumer01' },
+  { label: '商户', value: 'merchant01' },
+  { label: '监管方', value: 'regulator01' },
+]
+
 async function submit() {
   loading.value = true
   error.value = ''
@@ -31,59 +37,140 @@ async function submit() {
     loading.value = false
   }
 }
+
+function fillAccount(username) {
+    form.username = username
+    form.password = '123456'
+}
 </script>
 
 <template>
-  <div class="login-page">
-    <section class="login-showcase">
-      <div>
-        <span class="hero-tag">TraceMall</span>
-        <h1>可信果品流通的统一入口。</h1>
-        <p>同一套前端覆盖消费者、商家和监管方，让交易、验真与监管共享同一条批次链路。</p>
-      </div>
-
-      <div class="login-showcase-grid">
-        <div class="login-point">
-          <strong>消费者</strong>
-          <span>浏览商品、验真扫码、查看订单与批次来源。</span>
-        </div>
-        <div class="login-point">
-          <strong>商家</strong>
-          <span>录入商品、创建批次、生成二维码并补录事件。</span>
-        </div>
-        <div class="login-point">
-          <strong>监管方</strong>
-          <span>查看告警、审计日志和高风险批次线索。</span>
+  <div class="login-page refined-login">
+    <section class="login-stage">
+      <div class="login-copy">
+        <p class="login-kicker">TraceMall Access</p>
+        <h1>登录后进入统一风格的商城、商户端或监管视图。</h1>
+        <p class="login-description">
+          当前演示环境提供三种角色入口。系统会根据身份自动跳转到对应工作台，并保留追溯与验真能力。
+        </p>
+        <div class="account-pills">
+          <button v-for="account in demoAccounts" :key="account.value" class="account-pill" @click="fillAccount(account.value)">
+            <span>{{ account.label }}</span>
+            <strong>{{ account.value }}</strong>
+          </button>
         </div>
       </div>
-    </section>
 
-    <section class="login-card">
-      <div>
-        <h2>登录系统</h2>
-        <p class="panel-copy">使用现有测试账号进入对应角色界面。</p>
-      </div>
-
-      <div class="hint-box">
-        consumer01 / merchant01 / regulator01
-        <br />
-        默认密码：123456
-      </div>
-
-      <label class="field-group">
-        <span>用户名</span>
+      <section class="login-card refined">
+        <div class="login-card-head">
+          <p class="login-kicker">账户登录</p>
+          <h2>进入系统</h2>
+          <p>默认密码均为 `123456`。</p>
+        </div>
+        <label>用户名</label>
         <input v-model="form.username" />
-      </label>
-
-      <label class="field-group">
-        <span>密码</span>
-        <input type="password" v-model="form.password" @keyup.enter="submit" />
-      </label>
-
-      <button class="btn btn-primary btn-block" :disabled="loading" @click="submit">
-        {{ loading ? '登录中...' : '进入系统' }}
-      </button>
-      <p class="error" v-if="error">{{ error }}</p>
+        <label>密码</label>
+        <input type="password" v-model="form.password" />
+        <button class="btn btn-primary" :disabled="loading" @click="submit">
+          {{ loading ? '登录中...' : '登录' }}
+        </button>
+        <p class="error" v-if="error">{{ error }}</p>
+      </section>
     </section>
   </div>
 </template>
+
+<style scoped>
+.refined-login {
+  background:
+    radial-gradient(circle at 10% 10%, rgba(255, 221, 188, 0.5), transparent 28%),
+    radial-gradient(circle at 100% 0%, rgba(174, 196, 160, 0.28), transparent 24%),
+    linear-gradient(135deg, #f8f1e7, #eef3e9);
+}
+
+.login-stage {
+  width: min(1180px, 100%);
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.8fr);
+  gap: 28px;
+  align-items: center;
+}
+
+.login-copy {
+  padding: 30px 0;
+}
+
+.login-kicker {
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.login-copy h1,
+.login-card-head h2 {
+  margin-top: 12px;
+  font-family: var(--font-display);
+  line-height: 0.98;
+}
+
+.login-copy h1 {
+  font-size: clamp(2rem, 4.2vw, 3.6rem);
+  max-width: 11ch;
+}
+
+.login-description {
+  max-width: 34rem;
+  margin-top: 18px;
+  color: #556253;
+  line-height: 1.85;
+}
+
+.account-pills {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.account-pill {
+  border: 1px solid rgba(110, 126, 100, 0.15);
+  border-radius: 24px;
+  background: rgba(255, 251, 246, 0.75);
+  padding: 16px;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+}
+
+.account-pill span,
+.login-card-head p {
+  color: var(--muted);
+}
+
+.account-pill strong {
+  display: block;
+  margin-top: 6px;
+}
+
+.login-card.refined {
+  width: 100%;
+  padding: 30px;
+  background: rgba(255, 252, 248, 0.88);
+}
+
+.login-card-head {
+  margin-bottom: 8px;
+}
+
+.login-card-head h2 {
+  font-size: 2.4rem;
+}
+
+@media (max-width: 900px) {
+  .login-stage,
+  .account-pills {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
