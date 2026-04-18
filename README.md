@@ -44,7 +44,8 @@ TraceMall 目标是构建一个“可交易 + 可追溯 + 可监管”的水果�
 ## Monorepo 目录
 - `web/`：Vue 3 前端
 - `server/`：Spring Boot 后端
-- `docs/`：文档目录
+- `docs1/`：开发过程、项目介绍与使用说明
+- `docs2/`：项目技术文档资料
 
 ## 前端基线
 - Vue 3 + Vite
@@ -95,12 +96,8 @@ cd server
 - M2：可信增强（锚定、告警、监管）
 - M3：质量与论文支撑（性能、安全、实验）
 
-## 7. 实施文档
+## 7. 当前文档
 
-- `docs/roadmap.md`：阶段目标、交付件、验收标准
-- `docs/commit-policy.md`：分阶段提交规范
-- `docs/er-model.md`：数据库 ER 模型说明
-- `docs/api-groups.md`：API 分组与接口边界
-- `docs/verify-rules.md`：验真与风控规则
-- `docs/experiment-metrics.md`：论文实验指标建议
-- `docs/demo-script.md`：答辩演示脚本
+- `docs1/TraceMall-开发过程与心路历程.md`
+- `docs1/TraceMall-项目介绍与使用说明.md`
+- `docs2/TraceMall-M1-项目全景技术文档-GPT5.2输入版.md`

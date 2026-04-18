@@ -3,18 +3,43 @@ import { computed, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import AppShell from '@/components/layout/AppShell.vue'
 import NavIcon from '@/components/ui/NavIcon.vue'
+import TraceQrCard from '@/components/ui/TraceQrCard.vue'
 import TraceTimeline from '@/components/ui/TraceTimeline.vue'
 import { getFruit, traceDetail } from '@/api'
 import { useCartStore } from '@/stores/cart'
+import { buildTraceVerifyUrl } from '@/utils/traceQr'
 import { toBatchStatusLabel } from '@/utils/status'
+
+const DEMO_TRACE_BY_FRUIT_ID = {
+  1: 'TRACE-APPLE-001',
+  2: 'TRACE-ORANGE-001',
+  3: 'TRACE-GRAPE-001',
+  4: 'TRACE-KIWI-001',
+  5: 'TRACE-BLUEBERRY-001',
+  6: 'TRACE-PEAR-001',
+  7: 'TRACE-WOGAN-001',
+  8: 'TRACE-GREEN-GRAPE-001',
+  9: 'TRACE-STRAWBERRY-001',
+  10: 'TRACE-BANANA-001',
+}
 
 const route = useRoute()
 const router = useRouter()
 const cart = useCartStore()
 const fruit = ref(null)
-const traceId = ref('TRACE-APPLE-001')
+const traceId = ref('')
 const trace = ref(null)
 const error = ref('')
+const loading = ref(false)
+
+const qrValue = computed(() => {
+  const summary = trace.value?.summary
+  if (!summary?.traceId || !summary?.signature) return ''
+  return buildTraceVerifyUrl({
+    traceId: summary.traceId,
+    signature: summary.signature,
+  })
+})
 
 const summaryRows = computed(() => [
   { label: '分类', value: fruit.value?.category || '-' },
@@ -25,14 +50,21 @@ const summaryRows = computed(() => [
 
 async function loadFruit() {
   fruit.value = await getFruit(route.params.id)
+  if (!traceId.value) {
+    traceId.value = DEMO_TRACE_BY_FRUIT_ID[route.params.id] || ''
+  }
 }
 
 async function loadTrace() {
+  if (!traceId.value) return
+  loading.value = true
   error.value = ''
   try {
     trace.value = await traceDetail(traceId.value)
   } catch (err) {
     error.value = err.message
+  } finally {
+    loading.value = false
   }
 }
 
@@ -58,7 +90,9 @@ onMounted(async () => {
       <div class="detail-copy">
         <p class="detail-kicker">Selected Fruit</p>
         <h2>{{ fruit.fruitName }}</h2>
-        <p class="detail-description">{{ fruit.description || '当前商品支持下单、验真与溯源查询。' }}</p>
+        <p class="detail-description">
+          {{ fruit.description || '当前商品支持下单、验真与溯源查询。' }}
+        </p>
         <div class="detail-actions">
           <button class="btn btn-primary" @click="addCurrentFruit">
             <span class="btn-icon"><NavIcon name="plus" /></span>
@@ -82,13 +116,13 @@ onMounted(async () => {
       <section class="panel trace-panel">
         <div class="panel-head">
           <h3>溯源查询</h3>
-          <p>输入溯源码后查看批次摘要与事件链。</p>
+          <p>输入溯源码后查看批次摘要、二维码与事件链。</p>
         </div>
         <div class="verify-form">
           <input v-model="traceId" placeholder="TRACE-XXXX" />
           <button class="btn btn-primary" @click="loadTrace">
             <span class="btn-icon"><NavIcon name="verify" /></span>
-            <span>查询</span>
+            <span>{{ loading ? '查询中' : '查询' }}</span>
           </button>
         </div>
         <p class="error" v-if="error">{{ error }}</p>
@@ -99,7 +133,16 @@ onMounted(async () => {
         </div>
       </section>
 
-      <TraceTimeline :events="trace?.events || []" />
+      <div class="detail-side">
+        <TraceQrCard
+          v-if="qrValue"
+          :value="qrValue"
+          title="该批次二维码"
+          caption="二维码会直接指向公开验真页，消费者扫码后可查看结果与事件链。"
+          :trace-id="trace?.summary?.traceId"
+        />
+        <TraceTimeline :events="trace?.events || []" />
+      </div>
     </section>
   </AppShell>
 </template>
@@ -168,6 +211,12 @@ onMounted(async () => {
 
 .detail-grid {
   display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.92fr);
+  gap: 16px;
+}
+
+.detail-side {
+  display: grid;
   gap: 16px;
 }
 
@@ -176,7 +225,8 @@ onMounted(async () => {
 }
 
 @media (max-width: 900px) {
-  .detail-hero {
+  .detail-hero,
+  .detail-grid {
     grid-template-columns: 1fr;
   }
 }

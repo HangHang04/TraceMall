@@ -9,8 +9,8 @@ export const ORDER_STATUS_MAP = {
 
 export const MERCHANT_STATUS_MAP = {
   ON_SALE: '在售',
-  OFF_SALE: '下架',
-  DISABLED: '禁用',
+  OFF_SALE: '已下架',
+  DISABLED: '已禁用',
 }
 
 export const BATCH_STATUS_MAP = {
@@ -28,11 +28,11 @@ export const VERIFY_STATUS_MAP = {
 
 export const VERIFY_REASON_MAP = {
   'verify passed': '校验通过',
-  'signature mismatch': '签名不一致',
-  'anchor mismatch': '链上锚点不一致',
-  'trace code not found': '未找到该溯源码',
+  'signature mismatch': '签名不一致，二维码可能被篡改',
+  'anchor mismatch': '链上锚点未通过校验',
+  'trace code not found': '未找到对应溯源码',
   'traceId format invalid': '溯源码格式不合法',
-  'frequent scan anomaly': '扫描频次或地理位置异常',
+  'frequent scan anomaly': '短时间高频或异地扫码，触发风险提醒',
 }
 
 export function toOrderStatusLabel(status) {
@@ -56,8 +56,8 @@ export function toVerifyReasonLabel(reason) {
 }
 
 export function toRoleLabel(role) {
-  if (role === 'CONSUMER') return '用户'
-  if (role === 'MERCHANT') return '商户'
+  if (role === 'CONSUMER') return '消费者'
+  if (role === 'MERCHANT') return '商家'
   if (role === 'REGULATOR') return '监管方'
-  return role || '-'
+  return role || '访客'
 }
